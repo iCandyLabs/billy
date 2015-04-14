@@ -380,7 +380,7 @@ class SubjectListHandler(BillyHandler):
 
 
 class LegislatorGeoHandler(BillyHandler):
-    base_url = settings.BOUNDARY_SERVICE_URL
+    base_url = BOUNDARY_SERVICE_URL
 
     def read(self, request):
         latitude, longitude = request.GET.get('lat'), request.GET.get('long')
@@ -390,8 +390,8 @@ class LegislatorGeoHandler(BillyHandler):
             resp.write(': Need lat and long parameters')
             return resp
 
-        url = "%sdivisions/?fields=id&lat=%s&lon=%s&apikey=%s" % (
-            self.base_url, latitude, longitude, settings.API_KEY
+        url = "%sdivisions/?fields=id&lat=%s&lon=%s" % (
+            self.base_url, latitude, longitude
         )
 
         resp = json.load(urllib2.urlopen(url))
@@ -483,10 +483,9 @@ class BoundaryHandler(BillyHandler):
 
     def _ocd_id_to_shape_url(self, ocd_id):
         # url = "%sboundaries/%s/simple_shape" % (self.base_url, boundary_id)
-        url = "{}{}?apikey={}".format(
+        url = "{}{}".format(
             settings.BOUNDARY_SERVICE_URL,
-            ocd_id,
-            settings.API_KEY,
+            ocd_id
         )
         data = json.load(urllib2.urlopen(url))
         geometries = filter(

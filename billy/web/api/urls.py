@@ -19,6 +19,11 @@ class CORSResource(piston.resource.Resource):
 
 
 if getattr(settings, 'USE_LOCKSMITH', False):
+
+	authorizer = None
+    Resource = CORSResource
+    
+    '''
     from locksmith.mongoauth.authentication import PistonKeyAuthentication
     from locksmith.mongoauth.db import db
 
@@ -49,6 +54,7 @@ if getattr(settings, 'USE_LOCKSMITH', False):
                 pass
 
             return resp
+    '''
 else:
     authorizer = None
     Resource = CORSResource
@@ -84,10 +90,18 @@ subject_list_handler = Resource(handlers.SubjectListHandler,
                                 authentication=authorizer)
 legislator_geo_handler = Resource(handlers.LegislatorGeoHandler,
                                   authentication=authorizer)
+#legislator_geo_handler = Resource(handlers.LegislatorGeoHandler)
+
 district_handler = Resource(handlers.DistrictHandler,
                             authentication=authorizer)
+
+#district_handler = Resource(handlers.DistrictHandler)                            
+                            
 boundary_handler = Resource(handlers.BoundaryHandler,
                             authentication=authorizer)
+
+#boundary_handler = Resource(handlers.BoundaryHandler)
+
 news_handler = Resource(handlers.NewsHandler,
                         authentication=authorizer)
 
