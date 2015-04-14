@@ -19,10 +19,9 @@ class CORSResource(piston.resource.Resource):
 
 
 if getattr(settings, 'USE_LOCKSMITH', False):
-
-	authorizer = None
-    Resource = CORSResource
     
+    authorizer = None
+    Resource = CORSResource
     '''
     from locksmith.mongoauth.authentication import PistonKeyAuthentication
     from locksmith.mongoauth.db import db

@@ -380,7 +380,7 @@ class SubjectListHandler(BillyHandler):
 
 
 class LegislatorGeoHandler(BillyHandler):
-    base_url = BOUNDARY_SERVICE_URL
+    base_url = settings.BOUNDARY_SERVICE_URL
 
     def read(self, request):
         latitude, longitude = request.GET.get('lat'), request.GET.get('long')
